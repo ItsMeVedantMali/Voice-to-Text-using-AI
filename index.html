@@ -6,15 +6,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>🎤 Voice to Text Converter</h1>
-    <p class="subtitle">Click the button and speak to convert your voice into text.</p>
-    <button id="recordBtn">🎙️ Start Recording</button>
-    <p id="status">Status: Idle</p>
+  <div class="wrapper">
+    <div class="app-box">
+      <h1>🎤 Voice to Text</h1>
+      <p class="subtitle">Press the mic and speak. Your voice will be transcribed instantly!</p>
 
-    <div class="output-box">
-      <h3>📝 Transcribed Text</h3>
-      <div id="result">Your converted text will appear here...</div>
+      <button id="recordBtn" class="mic-button">🎙️ Tap to Record</button>
+      <p id="status">Status: Idle</p>
+
+      <div class="transcription-box">
+        <h3>📝 Transcription</h3>
+        <div id="result">Text will appear here...</div>
+      </div>
     </div>
   </div>
 
