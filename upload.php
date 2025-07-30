@@ -1,6 +1,6 @@
 <?php
 // AssemblyAI API key
-$apiKey = 'YOUR_ASSEMBLY_AI_API_KEY';
+$apiKey = '01b67e5ed79345398d5542ed66efda02';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_FILES['audio'])) {
