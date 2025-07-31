@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>🎤 Voice to Text</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice to Text</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="main-container">
+  <div class="container fade-in">
+    <button id="toggleMode">🌞 Light/Dark</button>
+    <h2 id="status">Status: Idle</h2>
+
     <div class="recorder-box">
-      <div class="display">
-        <p id="status">Status: Idle</p>
-      </div>
-
-      <div class="controls">
-        <button id="recordBtn">🎙️ Tap to Record</button>
-      </div>
-
-      <div class="transcript-area">
+      <button id="recordBtn">🎤 Tap to Record</button>
+      <div id="result">
         <h3>📝 Transcribed Text</h3>
-        <div id="result">Your text will appear here...</div>
+        <p>Your text will appear here...</p>
       </div>
     </div>
+
+    <div class="music-control">
+      <button onclick="toggleMusic(true)">🔊 Play Music</button>
+      <button onclick="toggleMusic(false)">🔇 Stop Music</button>
+    </div>
   </div>
+
+  <audio id="bgMusic" loop>
+    <source src="background.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <script src="script.js"></script>
 </body>
