@@ -2,21 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Voice to Text App</title>
+  <title>🎤 Voice to Text</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="wrapper">
-    <div class="app-box">
-      <h1>🎤 Voice to Text</h1>
-      <p class="subtitle">Press the mic and speak. Your voice will be transcribed instantly!</p>
+  <div class="main-container">
+    <div class="recorder-box">
+      <div class="display">
+        <p id="status">Status: Idle</p>
+      </div>
 
-      <button id="recordBtn" class="mic-button">🎙️ Tap to Record</button>
-      <p id="status">Status: Idle</p>
+      <div class="controls">
+        <button id="recordBtn">🎙️ Tap to Record</button>
+      </div>
 
-      <div class="transcription-box">
-        <h3>📝 Transcription</h3>
-        <div id="result">Text will appear here...</div>
+      <div class="transcript-area">
+        <h3>📝 Transcribed Text</h3>
+        <div id="result">Your text will appear here...</div>
       </div>
     </div>
   </div>
