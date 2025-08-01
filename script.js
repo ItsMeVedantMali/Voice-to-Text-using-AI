@@ -1,40 +1,55 @@
-let mediaRecorder;
-let audioChunks = [];
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #222;
+  transition: background-color 0.3s, color 0.3s;
+}
 
-document.getElementById('recordBtn').onclick = async () => {
-  const status = document.getElementById('status');
-  const resultDiv = document.getElementById('result');
-  
-  if (!mediaRecorder || mediaRecorder.state === 'inactive') {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorder = new MediaRecorder(stream);
-    
-    mediaRecorder.ondataavailable = e => {
-      audioChunks.push(e.data);
-    };
+body.dark-mode {
+  background-color: #121212;
+  color: #eee;
+}
 
-    mediaRecorder.onstop = async () => {
-      status.textContent = "Status: Uploading...";
-      const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-      const formData = new FormData();
-      formData.append('audio', audioBlob, 'recording.wav');
+.container {
+  max-width: 500px;
+  margin: 50px auto;
+  text-align: center;
+}
 
-      const response = await fetch('upload.php', {
-        method: 'POST',
-        body: formData
-      });
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
 
-      const result = await response.json();
-      resultDiv.textContent = result.text || 'Error: ' + result.error;
-      status.textContent = "Status: Done";
-      audioChunks = [];
-    };
+button:hover {
+  background-color: #ffd54f;
+  transform: scale(1.05);
+}
 
-    mediaRecorder.start();
-    status.textContent = "Status: Recording...";
-    document.getElementById('recordBtn').textContent = "Stop Recording";
-  } else {
-    mediaRecorder.stop();
-    document.getElementById('recordBtn').textContent = "Start Recording";
-  }
-};
+.recorder-box {
+  background-color: #e0f7fa;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+body.dark-mode .recorder-box {
+  background-color: #1f1f1f;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
