@@ -3,30 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Voice to Text</title>
+  <title>Voice to Text App</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container fade-in">
-    <button id="toggleMode">🌞 Light/Dark</button>
-    <h2 id="status">Status: Idle</h2>
+  <div class="main-container">
+    <div class="voice-box">
+      <h2 id="status">🎤 Status: Idle</h2>
 
-    <div class="recorder-box">
-      <button id="recordBtn">🎤 Tap to Record</button>
-      <div id="result">
+      <button id="recordBtn">🎙️ Tap to Record</button>
+
+      <div class="output-section">
         <h3>📝 Transcribed Text</h3>
-        <p>Your text will appear here...</p>
+        <p id="output">Your text will appear here...</p>
       </div>
-    </div>
 
-    <div class="music-control">
-      <button onclick="toggleMusic(true)">🔊 Play Music</button>
-      <button onclick="toggleMusic(false)">🔇 Stop Music</button>
+      <div class="music-controls">
+        <button onclick="toggleMusic(true)">🔊 Play Music</button>
+        <button onclick="toggleMusic(false)">🔇 Stop Music</button>
+      </div>
+
+      <div class="theme-toggle">
+        <button id="toggleMode">🌙 Light / Dark</button>
+      </div>
     </div>
   </div>
 
   <audio id="bgMusic" loop>
-    <source src="background.mp3" type="audio/mpeg">
+    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Kai_Engel/Irsens_Tale/Kai_Engel_-_04_-_February.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 

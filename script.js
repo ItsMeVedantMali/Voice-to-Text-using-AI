@@ -1,55 +1,64 @@
-body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f9f9f9;
-  color: #222;
-  transition: background-color 0.3s, color 0.3s;
-}
+let mediaRecorder;
+let audioChunks = [];
 
-body.dark-mode {
-  background-color: #121212;
-  color: #eee;
-}
+document.getElementById('recordBtn').onclick = async () => {
+  const status = document.getElementById('status');
+  const output = document.getElementById('output');
 
-.container {
-  max-width: 500px;
-  margin: 50px auto;
-  text-align: center;
-}
+  if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(stream);
+    audioChunks = [];
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  margin: 10px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
+    mediaRecorder.ondataavailable = e => {
+      if (e.data.size > 0) {
+        audioChunks.push(e.data);
+      }
+    };
 
-button:hover {
-  background-color: #ffd54f;
-  transform: scale(1.05);
-}
+    mediaRecorder.onstop = async () => {
+      status.textContent = "Uploading...";
+      const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+      const formData = new FormData();
+      formData.append('audio', audioBlob, 'recording.wav');
 
-.recorder-box {
-  background-color: #e0f7fa;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 10px;
-  transition: background-color 0.3s;
-}
+      try {
+        const response = await fetch('upload.php', {
+          method: 'POST',
+          body: formData
+        });
 
-body.dark-mode .recorder-box {
-  background-color: #1f1f1f;
-}
+        const result = await response.json();
+        output.textContent = result.text || '❌ Error: ' + result.error;
+        status.textContent = "Done ✅";
+      } catch (err) {
+        output.textContent = '❌ Network or Server Error';
+        status.textContent = "Failed";
+      }
 
-.fade-in {
-  animation: fadeIn 1s ease-in;
-}
+      document.getElementById('recordBtn').textContent = "🎙️ Tap to Record";
+    };
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+    mediaRecorder.start();
+    status.textContent = "Recording... ⏺";
+    document.getElementById('recordBtn').textContent = "⏹ Stop Recording";
+  } else {
+    mediaRecorder.stop();
+  }
+};
+
+// Dark mode toggle
+document.getElementById('toggleMode').onclick = () => {
+  document.body.classList.toggle('dark-mode');
+};
+
+// Music control
+function toggleMusic(play) {
+  const music = document.getElementById('bgMusic');
+  if (play) {
+    music.play();
+  } else {
+    music.pause();
+    music.currentTime = 0;
+  }
 }
