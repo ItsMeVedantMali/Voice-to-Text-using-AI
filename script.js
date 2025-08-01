@@ -11,9 +11,7 @@ document.getElementById('recordBtn').onclick = async () => {
     audioChunks = [];
 
     mediaRecorder.ondataavailable = e => {
-      if (e.data.size > 0) {
-        audioChunks.push(e.data);
-      }
+      audioChunks.push(e.data);
     };
 
     mediaRecorder.onstop = async () => {
@@ -40,19 +38,19 @@ document.getElementById('recordBtn').onclick = async () => {
     };
 
     mediaRecorder.start();
-    status.textContent = "Recording... ⏺";
+    status.textContent = "🔴 Recording...";
     document.getElementById('recordBtn').textContent = "⏹ Stop Recording";
   } else {
     mediaRecorder.stop();
   }
 };
 
-// Dark mode toggle
+// ✅ DARK MODE
 document.getElementById('toggleMode').onclick = () => {
   document.body.classList.toggle('dark-mode');
 };
 
-// Music control
+// ✅ MUSIC TOGGLE FUNCTION
 function toggleMusic(play) {
   const music = document.getElementById('bgMusic');
   if (play) {
